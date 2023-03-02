@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="530.0" spacing="20.0" style="-fx-background-color: #2A2E45;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.conversior.conversormonedas.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Label fx:id="mainLabel" contentDisplay="CENTER" lineSpacing="4.0" textAlignment="CENTER" textFill="#00f76b">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+   </Label>
+    <ChoiceBox fx:id="queConvertir" prefWidth="160.0" style="-fx-background-radius: 10px; -fx-background-color: white;" value="Opción">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Convertir Monedas" />
+                <String fx:value="Convertir Temperatura" />
+            </FXCollections>
+        </items>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </padding>
+    </ChoiceBox>
+   <Label fx:id="labelResultado" lineSpacing="10.0" style="-fx-background-color: #000022; -fx-background-radius: 6;" textAlignment="CENTER" textFill="#ffe100">
+      <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding></Label>
+</VBox>
