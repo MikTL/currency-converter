@@ -51,7 +51,7 @@ public class HelloController implements Initializable {
                     } else if (valorNuevo.equals(paresMonedas[3])) {
                         setResultadoMonedas(monto,valoresMonedas.getJpy(),"Yen Japones");
                     } else if (valorNuevo.equals(paresMonedas[4])) {
-                        setResultadoMonedas(monto,valoresMonedas.getKrw(),"Won Surcoreano");
+                        setResultadoMonedas(monto,valoresMonedas.getKrw(),"Won Sul-coreano");
                     }
                 });
             } else if (newValue.equals("Convertir Temperatura")) {
