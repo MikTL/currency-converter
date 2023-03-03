@@ -1,28 +1,27 @@
 <h1 align="center">Challenge Currency converter</h1>
 
-Este es un challenge del programa ONE (Oracle Next Education) de Oracle, 
-trata de un programa que posibilita la conversión de divisas y conversion de temperatura.
+This is a challenge from the ONE (Oracle Next Education) program by Oracle, which is about a program that enables currency and temperature conversion.
 
-Las caracteristicas solicitadas son:
+The requested features are:
 
-El conversor de monedas debe: 
+The currency converter should:
 
-1. Convertir la moneda de tu pais a Dolar
-2. Convertir la moneda de tu pais a Euro
-3. Convertir la moneda de tu pais a Libras Esterlinas
-4. Convertir la moneda de tu pais a Yen Japonés
-5. Convertir la moneda de tu pais a Won sul-coreano
+Convert your country's currency to USD.
+Convert your country's currency to EUR.
+Convert your country's currency to GBP.
+Convert your country's currency to JPY.
+Convert your country's currency to KRW.
+Remembering that the reverse conversion should also be possible.
 
-Recordando que tambien debe ser posible la conversion inversa.
 
 ## Extra
-El extra añadido en mi proyecto es el de convertir temperaturas.
+The extra added in my project is the conversion of temperatures.
 
-El conversor de temperatura muestra en un solo resultado la conversión de Kelvin, Fahrenheit, Celsius y Rankine, con la capacidad de poder cambiar la unidad de medida de la que se calcularán las demas. 
+The temperature converter shows in a single result the conversion of Kelvin, Fahrenheit, Celsius, and Rankine, with the ability to change the unit of measurement from which the others will be calculated. 
 
-## RESULTADOS
+## RESULTS
 
-### Conversor de Monedas
+### Currency Converter
 ![Monedas](./media/monedas.gif)
-### Conversor de Temperaturas
+### Temperature Converter
 ![Temperatura](./media/temperatura.gif)
