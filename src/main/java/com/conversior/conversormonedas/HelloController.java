@@ -3,6 +3,7 @@ package com.conversior.conversormonedas;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 
@@ -27,38 +28,25 @@ public class HelloController implements Initializable {
     public double monto = 0;
     ValoresMonedas valoresMonedas = new ValoresMonedas();
     FormulasTemperatura formT = new FormulasTemperatura();
+    String[] paresMonedas = {"Sol/Dolar","Sol/Euro","Sol/Libra Esterlina","Sol/Yen Japonés","Sol/Won Surcoreano"};
+    String[] UMTemperatura = {"Celsius","Kelvin","Fahrenheit","Rankine"};
+    String textLabelTemp = "Selecciona el par de temperaturas";
+    String valueLabelTemp = "Pares temperaturas";
+    String textLabelMon = "Selecciona el par de monedas";
+    String valueLabelMon = "Pares monedas";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String[] paresMonedas = {"Sol/Dolar","Sol/Euro","Sol/Libra Esterlina","Sol/Yen Japonés","Sol/Won Surcoreano"};
-        String[] UMTemperatura = {"Celsius","Kelvin","Fahrenheit","Rankine"};
-
-
-
         mainLabel.setText("Seleccione una opción de Conversión");
 
         queConvertir.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue.equals("Convertir Monedas")) {
                 ValoresInput("Hola","Ingrese un Monto","Valor");
-                validarInput(valorInput,0.0,paresMonedas);
-                queConvertir.getSelectionModel().selectedItemProperty().addListener((valorObservable,valorAntiguo,valorNuevo)->{
-                    mainLabel.setText("Resultados");
-                    if(valorNuevo.equals(paresMonedas[0])){
-                        setResultadoMonedas(monto,valoresMonedas.getDolar() , "Dolares");
-                    }else if(valorNuevo.equals(paresMonedas[1])){
-                        setResultadoMonedas(monto, valoresMonedas.getEuro(),"Euros");
-                    } else if (valorNuevo.equals(paresMonedas[2])) {
-                        setResultadoMonedas(monto,valoresMonedas.getGbp(),"Libras Esterlinas");
-                    } else if (valorNuevo.equals(paresMonedas[3])) {
-                        setResultadoMonedas(monto,valoresMonedas.getJpy(),"Yen Japones");
-                    } else if (valorNuevo.equals(paresMonedas[4])) {
-                        setResultadoMonedas(monto,valoresMonedas.getKrw(),"Won Sul-coreano");
-                    }
-                });
+                validarInput(valorInput,0.0,textLabelMon,paresMonedas,valueLabelMon);
+                escuchadorMoneda(paresMonedas);
             } else if (newValue.equals("Convertir Temperatura")) {
                 ValoresInput("Hola","Ingrese una temperatura","Valor");
-                validarInput(valorInput,-459.67,UMTemperatura);
+                validarInput(valorInput,-459.67,textLabelTemp,UMTemperatura,valueLabelTemp);
                 queConvertir.getSelectionModel().selectedItemProperty().addListener((valorObservable,valorAntiguo,valorNuevo)->{
-                    mainLabel.setText("Resultados");
                     if(valorNuevo.equals(UMTemperatura[0])){
                         resTemp(formT,monto,"Celsius");
                     } else if (valorNuevo.equals(UMTemperatura[1])) {
@@ -86,7 +74,7 @@ public class HelloController implements Initializable {
     public void setResultadoMonedas(Double monto, Double vm, String moneda){
         labelResultado.setText(
                 monto+" Soles son "+ Math.round ((monto/ vm)*10.0)/10.0 +" "+moneda+
-                        "\n"+monto+" "+ moneda+" son "+Math.round((monto* vm))+" Soles"
+                        "\n"+monto+" "+ moneda+" son "+Math.round((monto* vm)*10.0)/10.0 +" Soles"
         );
     }
     public void resTemp(FormulasTemperatura formTemp ,Double valor,String origen){
@@ -143,13 +131,32 @@ public class HelloController implements Initializable {
 
     }
     public void setResTemp(String[] res,String origen, String uno,String dos, String tres,int indice0,int indice1,int indice2,int indice3){
-        labelResultado.setText(
-            res[indice0]+"° "+origen+" son "+res[indice1]+uno+"\n"+
-                    res[indice0]+"° "+origen+" son "+res[indice2]+dos+"\n"+
-                    res[indice0]+"° "+origen+" son "+res[indice3]+tres
-        );
+        if (res[0] != "") {
+            labelResultado.setText(
+                    res[indice0]+"° "+origen+" son "+res[indice1]+uno+"\n"+
+                            res[indice0]+"° "+origen+" son "+res[indice2]+dos+"\n"+
+                            res[indice0]+"° "+origen+" son "+res[indice3]+tres
+            );
+        }else {
+            labelResultado.setText("Temperatura muy baja para esta unidad de medida");
+        }
     }
-    public void validarInput(TextInputDialog input, double limite,String[]pares){
+    public void escuchadorMoneda(String[] paresMonedas){
+        queConvertir.getSelectionModel().selectedItemProperty().addListener((valorObservable,valorAntiguo,valorNuevo)->{
+            if(valorNuevo.equals(paresMonedas[0])){
+                setResultadoMonedas(monto,valoresMonedas.getDolar() , "Dolares");
+            }else if(valorNuevo.equals(paresMonedas[1])){
+                setResultadoMonedas(monto, valoresMonedas.getEuro(),"Euros");
+            } else if (valorNuevo.equals(paresMonedas[2])) {
+                setResultadoMonedas(monto,valoresMonedas.getGbp(),"Libras Esterlinas");
+            } else if (valorNuevo.equals(paresMonedas[3])) {
+                setResultadoMonedas(monto,valoresMonedas.getJpy(),"Yen Japones");
+            } else if (valorNuevo.equals(paresMonedas[4])) {
+                setResultadoMonedas(monto,valoresMonedas.getKrw(),"Won Sul-coreano");
+            }
+        });
+    }
+    public void validarInput(TextInputDialog input, double limite,String textLabel,String[]pares,String valueLabel){
         Optional<String> result = input.showAndWait();
         if(!result.isPresent()){
             System.out.println("El no hay valor");
@@ -160,9 +167,18 @@ public class HelloController implements Initializable {
                     if(monto<limite){
                         throw new NumberFormatException();
                     }
-                    actualizarIntefaz("Selecciona el par de monedas", pares,"Pares Monedas");
+                    actualizarIntefaz(textLabel, pares,valueLabel);
+                    mainLabel.setText("Selecciona un par");
+                    labelResultado.setText("");
                 }catch (NumberFormatException nun){
-                    System.out.println("Se aceptan solo numeros positivos mayores a 0");
+                    if(limite==0.0){
+                        mainLabel.setText("Seleccione otra vez");
+                        labelResultado.setText("Ingresa numeros mayores a 0");
+                    }else {
+                        mainLabel.setText("Seleccione otra vez");
+                        labelResultado.setText("El valor minimo en la unidad de medida Fahrenheit \n es -459.67, no " +
+                                "puede ingresar valores mas bajos");
+                    }
                     queConvertir.setValue("Opción");
                 }
 
